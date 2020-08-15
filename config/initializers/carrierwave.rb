@@ -11,8 +11,7 @@ CarrierWave.configure do |config|
       provider: 'AWS',
      #  aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
      #  aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      aws_access_key_id: "AKIAZUOMWINGY5H74VHK",
-      aws_secret_access_key: "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",
+
 # 直打ちのままgithubには絶対にpushしない 
       region: "ap-northeast-1",
       path_style: true
