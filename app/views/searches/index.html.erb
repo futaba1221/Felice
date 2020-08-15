@@ -1,0 +1,58 @@
+<div id="search-index">
+  <h2>検索パターン一覧</h2>
+  <div class="search-index-new">
+    <%= link_to "検索パターン作成", new_user_search_path, class: "btn btn-primary" %>
+  </div>
+  <hr>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 10%;">Memo</th>
+        <th scope="col" style="width: 10%;">年齢</th>
+        <th scope="col" style="width: 10%;">血液型</th>
+        <th scope="col" style="width: 10%;">身長</th>
+        <th scope="col" style="width: 30%;">在住</th>
+        <th scope="col" style="width: 20%;">年収</th>
+        <th scope="col" style="width: 10%;">編集</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @searches.each do |s| %>
+          <tr>
+            <th class="position-relative" scope="row"><%= link_to s.memo, "/users/#{current_user.id}/searches/#{s.id}", class: "stretched-link" %></th>
+            <td class="position-relative"><%= link_to "#{s.age[0]}〜#{s.age[1]}", "/users/#{current_user.id}/searches/#{s.id}", class: "stretched-link" %></td>
+            <td class="position-relative">
+              <%= link_to "/users/#{current_user.id}/searches/#{s.id}", class: "stretched-link" do %>
+                <% if s.blood.present? %>
+                    <% s.blood.each do |b| %>
+                      <%= b.upcase %>
+                    <% end %>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="position-relative"><%= link_to "#{s.height[0]}〜#{s.height[1]}", "/users/#{current_user.id}/searches/#{s.id}", class: "stretched-link" %></td>
+            <td class="position-relative">
+              <%= link_to "/users/#{current_user.id}/searches/#{s.id}", class: "stretched-link" do %>
+                <% if s.prefecture_id.present? %>
+                  <% s.prefecture_id.each do |p| %>
+                    <%= prefecture_omission(Prefecture.find(p).name) %>
+                  <% end %>
+                <% end %>
+              <% end %>          
+            </td>
+            <td class="position-relative">
+              <%= link_to "/users/#{current_user.id}/searches/#{s.id}", class: "stretched-link" do %>
+                <% if s.money.present? %>
+                    <div>
+                        <%= year_income(s.money) %>
+                    </div>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= link_to "編集", "/users/#{current_user.id}/searches/#{s.id}/edit", class: "btn btn-info" %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

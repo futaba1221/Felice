@@ -1,0 +1,26 @@
+ 
+<h2>
+
+    <%= link_to "Add New", new_post_path, class: "header-menu" %>
+
+    ブログ</h2>
+
+<ul class="post-index">
+<% @posts.each do |post| %>
+<li>
+<div class="card-user">
+ <%= link_to post_path(post) do %>
+  <% if post.images.present? %>
+   <%= image_tag post.images[0], class: "index-image" %>
+  <% else %>
+   <%= image_tag "/no-image2.jpg", class: "index-image" %>
+  <% end %>
+  <div class="card-body">
+      <p>Title: <%= post.title.truncate(15)%></p>
+      <p>Content: <%= post.article %></p>
+  </div>
+ <% end %>
+</div>    
+</li>
+<% end %>
+</ul>

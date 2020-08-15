@@ -1,0 +1,20 @@
+<%= form_for @post do |f| %>
+<p>
+  <%= f.text_field :title, placeholder: "タイトル" %>
+  <% if @post.errors.messages[:title].any? %>
+  <span class="error"><%= @post.errors.messages[:title][0] %></span>
+ <% end %>
+</p>
+<p>
+  <%= f.text_area :article, placeholder: "内容" %>
+  <% if @post.errors.messages[:article].any? %>
+  <span class="error"><%= @post.errors.messages[:article][0] %></span>
+ <% end %>
+</p>
+<%= f.file_field :images, multiple: true %>
+</br>
+</br>
+<p>
+  <%= f.submit class: "btn btn-info" %>
+</p>
+ <% end %>

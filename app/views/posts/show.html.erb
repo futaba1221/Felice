@@ -1,0 +1,77 @@
+
+<div>
+  <% if @user.image_names.present? %>
+     <%= image_tag @user.image_names[0] %>
+  <% else %>
+   <%= image_tag "/no-image.png" %>
+  <% end %>
+</div>
+<h2><%= link_to @user.name, "/users/#{@user.id}" %></h2>
+<h2>title:<%= @post.title %></h2>
+<% if @post.images? %>
+  <div class="post-show-image-area">
+   <% @post.images.each do |image| %>
+     <%= image_tag image, class: "show-image" %>
+   <% end %>
+  </div>
+<% end %>
+<p>Content:<%= simple_format @post.article %></p>
+
+  <div class="nice-count">
+       <% if Nice.find_by(user_id: current_user, post_id: @post.id) %>
+          <%= link_to("/nices/#{@post.id}/destroy", {method: "post"}) do %>
+            <span class="fa fa-heart nice-btn-unlike"></span>
+          <% end %>
+      <% else %>
+          <%= link_to("/nices/#{@post.id}/create", {method: "post"}) do %>
+            <span class="fa fa-heart nice-btn"></span>
+          <% end %>
+      <% end %>
+        <%= @nices_count %>
+  </div>
+
+<% if  @post.user_id === current_user.id %>
+      <%= link_to "[Edit]", edit_post_path, class: "command" %>
+      <%= link_to "[✖]", 
+      post_path,
+      method: :delete,
+      class: "command",
+      data: { confirm: "Sure?" } %>
+   <% end %>
+   
+<h3>Comments</h3>
+<% if @post.comments.any? %>
+<ul>
+<% @post.comments.each do |comment| %>
+<li>
+  <% if User.find_by(id: comment.user_id).image_names[0].present? %>
+  <%= image_tag User.find_by(id: comment.user_id).image_names[0] %>
+  <% else %>
+   <%= image_tag "/no-image.png" %>
+  <% end %>
+<%= User.find_by(id: comment.user_id).name %>
+<%= comment.body %>
+
+ <% if user_signed_in? %>
+   <% if  User.find_by(id: comment.user_id).id === current_user.id %>
+    <%= link_to "[✖]", 
+      post_comment_path(@post, comment),
+      method: :delete,
+      class: "command",
+      data: { confirm: "Sure?" } %>
+   <% end %>
+ <% end %>
+</li>
+<% end %>
+</ul>
+<% end %>
+<% if user_signed_in? %>
+  <%= form_for ([@post, @post.comments.build]) do |f| %>
+<p>
+  <%= f.text_field :body %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+ <% end %>
+<% end %>

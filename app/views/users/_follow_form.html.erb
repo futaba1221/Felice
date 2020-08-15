@@ -1,0 +1,10 @@
+<% unless @user.id == current_user.id %>
+  <div id="follow_form">
+  <% if current_user.following?(@user) %>
+    <button class="btn" style="background:#d3d3d3;">いいね！ 済</button> 
+    <!--< render 'unfollow' %>-->
+  <% else %>
+    <%= render 'follow' %>
+  <% end %>
+  </div>
+<% end %>

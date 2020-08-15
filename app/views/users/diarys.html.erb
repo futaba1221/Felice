@@ -1,0 +1,30 @@
+<%= render "form-mypage" %>
+
+<div class="user-show-posts">
+  <h1>投稿日記</h1>
+    <% if @user.id === current_user.id %>
+      <h2><%= link_to "Add New", new_post_path, class: "header-menu" %></h2>
+    <% end %>
+    <ul>
+     <% @posts.each do |post| %>
+      <il>
+       <div class="users-index-item">
+          <div class="user-left">
+           <%= link_to post_path(post) do %>
+            <% if post.images.present? %>
+               <%= image_tag post.images[0], class: "index-image" %>
+            <% else %>
+             <%= image_tag "/no-image.png", class: "index-image" %>
+            <% end %>
+           </div>
+            <div class="user-right">
+              <h3><%= post.title %></h3>
+              <p><%= post.article %></p>
+            </div>
+           <% end %>
+        </div>
+       </il>
+      <% end %>
+    </ul>
+  </div>
+  </div>

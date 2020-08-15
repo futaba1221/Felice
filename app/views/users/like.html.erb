@@ -1,0 +1,25 @@
+<h1>いいね！したリスト</h1>
+
+<% @relationships.each do |users| %>
+ <% User.where(id: users.followed_id).each do |user| %>
+  <div class="likestyle">
+  <% if user.image_names.present? %>
+     <%= image_tag user.image_names[0], class: "show-image_names2" %>
+  <% else %>
+   <%= image_tag "/no-image.png", class: "show-image_names2" %>
+  <% end %>
+  
+     <div class="like">
+      <ul>
+      <li>
+       <h2><%= link_to(user.name, "/users/#{users.followed_id}") %></h2>
+      </li>
+      <li>
+       <%= Prefecture.find_by(id: user.prefecture_id).name %>
+      </li>
+     </ul>
+    </div>
+  </div>   
+  <% end %> 
+<% end %>
+

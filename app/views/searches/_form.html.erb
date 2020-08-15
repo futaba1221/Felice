@@ -1,0 +1,68 @@
+<%= form_for [@user, @search] do |f| %>
+  <div class="label">Memo（検索内容メモ）</div>
+  <div><%= f.text_field :memo, class: "form-control" %></div>
+  <div class="label">年齢</div>
+  <div class="form-inline"><%= f.number_field :age, name:"search[age][]", value: 30, class: "form-control col-1" %>〜<%= f.number_field :age, name:"search[age][]", class: "form-control col-1", value: 40 %></div>
+
+  <div class="label">身長</div>
+    <div class="form-inline"><%= f.number_field :height, name:"search[height][]", class: "form-control col-1", value: 170 %>〜<%= f.number_field :height, name:"search[height][]", class: "form-control col-1", value: 180 %></div>
+  
+  <div class="label">体型</div>
+  
+  <div class="label">血液型</div>
+  <div>  
+    <%= f.check_box :blood, {multiple: true}, "a", nil %>A型&nbsp;
+    <%= f.check_box :blood, {multiple: true}, "b", nil %>B型&nbsp;
+    <%= f.check_box :blood, {multiple: true}, "ab", nil %>AB型&nbsp;
+    <%= f.check_box :blood, {multiple: true}, "o", nil %>O型
+  </div>
+    
+  <% if current_user.gender == "f" %>
+    <div class="label">兄弟</div>
+    <%= f.check_box :brother, {multiple: true}, 1, nil %>長男&nbsp;
+    <%= f.check_box :brother, {multiple: true}, 2, nil %>次男&nbsp;
+    <%= f.check_box :brother, {multiple: true}, 3, nil %>三男&nbsp;
+    <%= f.check_box :brother, {multiple: true}, 99, nil %>末っ子
+  <% else %>
+    <div class="label">姉妹</div>
+    <%= f.check_box :brother, {multiple: true}, 1, nil %>長女&nbsp;
+    <%= f.check_box :brother, {multiple: true}, 2, nil %>次女&nbsp;
+    <%= f.check_box :brother, {multiple: true}, 3, nil %>三女&nbsp;
+    <%= f.check_box :brother, {multiple: true}, 99, nil %>末っ子  
+  <% end %>
+  
+  <div class="label">在住都道府県（複数選択可）</div>
+    <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_hidden: false}, {:class => "form-control col-2",:multiple => true}) %>
+
+  <div class="label">出身都道府県（複数選択可）</div> 
+    <%= f.collection_select(:birthplace_id, Prefecture.all, :id, :name, {include_hidden: false}, {:class => "form-control col-2",:multiple => true}) %>
+  
+  <div class="label">最終学歴</div>
+    <%= f.radio_button :study, 1 %>高校卒業&nbsp;
+    <%= f.radio_button :study, 2 %>専門学校卒業&nbsp;
+    <%= f.radio_button :study, 3 %>短大卒業&nbsp;
+    <%= f.radio_button :study, 4 %>大学卒業&nbsp;
+    <%= f.radio_button :study, 5 %>大学院卒業&nbsp;
+    
+  <div class="label">仕事（複数選択）</div>
+    <!--<= f.select :job_id, User.prefs.keys, :value => User.prefs.values %>-->
+    
+  <div class="label">年収</div>
+    <%= f.radio_button :money, 1 %>200万～400万&nbsp;
+    <%= f.radio_button :money, 2 %>400万～600万&nbsp;
+    <%= f.radio_button :money, 3 %>600万～800万&nbsp;
+    <%= f.radio_button :money, 4 %>800万～1000万&nbsp;
+    <%= f.radio_button :money, 5 %>1000万～1200万&nbsp;
+    <%= f.radio_button :money, 6 %>1200万以上&nbsp;
+    
+    
+  <br><br>
+  <div>
+      <% if request.path.include?("new") %>
+        <%= f.submit "検索パターン作成", class: "btn btn-primary" %>
+      <% else %>
+        <%= f.submit "検索パターン修正", class: "btn btn-primary" %>
+      <% end %>
+  </div>
+<% end %>
+

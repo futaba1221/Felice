@@ -1,0 +1,44 @@
+// Place all the styles related to the posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.post-index{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-user{
+    Width: 500px;
+    margin: 10px;
+    height: 300px;
+    border: solid 1px Black;
+    border-radius: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-user img{
+    Width: 250px;
+    height: 290px;
+    margin: 5px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+.post-index li{
+    list-style-type: none;
+}
+
+
+.show-image {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.post-show-image-area {
+    width: 100%;
+    height: 320px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}

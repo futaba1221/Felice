@@ -1,0 +1,206 @@
+<div id="registrations-edit">
+  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+  
+    <div class="field">
+      <%= f.label "ﾆｯｸﾈｰﾑ" %><br />
+      <%= f.text_field :name, autofocus: true %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "プロフ写真 (複数選択出来ます)" %><br />
+      <%= f.file_field :image_names, multiple: true %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "自己ＰＲ" %><br />
+      <%= f.text_area :self_pr, placeholder: "自己ＰＲ" %>
+    </div>
+
+    <div class="field">
+      <%= f.label "生年月日" %><br />
+      <%= f.date_field :birthday %>
+    </div>  
+    
+    <div>
+      <span class="label">性別</span>
+      <% if current_user.gender == "m" %>
+        <span>男性</span>
+      <% else %>
+        <span>女性</span>
+      <% end %>
+    </div>
+  
+    <div class="field">
+    <%= f.label "血液型:" %><br />
+    <div class="radio-inline">
+      <%= f.radio_button :blood, :A %> A型
+      <%= f.radio_button :blood, :B %> B型
+      <%= f.radio_button :blood, :O %> O型
+      <%= f.radio_button :blood, :AB %> AB型
+    </div>
+    
+    <div class="field">
+      <%= f.label "身長" %><br />
+      <%= f.number_field :stature, {max: 240, min: 140, value: 165} %>
+    </div>  
+    
+    <div class="field">
+      <%= f.label "体型:" %><br />
+    <div class="radio-inline">
+      <%= f.radio_button :figure, :XS %> 細身
+      <%= f.radio_button :figure, :S %> やや細身
+      <%= f.radio_button :figure, :M %> 普通
+      <%= f.radio_button :figure, :L %> ややぽっちゃり
+      <%= f.radio_button :figure, :XL %> ぽっちゃり
+    </div>
+    
+    <div class="field">
+      <%= f.label "住居地:" %><br />
+      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, prompt: "選択してください") %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "出身地:" %><br />
+      <%= f.collection_select(:birthplace_id, Birthplace.all, :id, :name, prompt: "選択してください") %>
+    </div>
+  
+    <div class="field">
+      <%= f.label "好きなこと・趣味" %><br />
+      <%= f.text_field :like, autofocus: true %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "お酒:" %><br />
+      <div class="radio-inline">
+        <%= f.radio_button :liquor, "飲まない" %> 飲まない
+        <%= f.radio_button :liquor, "飲む" %> 飲む
+        <%= f.radio_button :liquor, "ときどき飲む" %> ときどき飲む
+      </div>
+    </div>
+    
+    <div class="field">
+      <%= f.label "タバコ:" %><br />
+      <div class="radio-inline">
+        <%= f.radio_button :tobacco, "吸わない" %> 吸わない
+        <%= f.radio_button :tobacco, "吸う" %> 吸う
+        <%= f.radio_button :tobacco, "電子タバコ" %> 電子タバコ
+        <%= f.radio_button :tobacco, "相手が嫌ならやめる" %> 相手が嫌ならやめる
+      </div>
+    </div>
+    
+    <div class="field">
+      <% if current_user.gender == "m" %>
+      <%= f.label "兄弟:" %><br />
+      <div class="radio-inline">
+        <%= f.radio_button :brother, "長男" %> 長男
+        <%= f.radio_button :brother, "一人っ子" %> 一人っ子
+        <%= f.radio_button :brother, "次男" %> 次男
+        <%= f.radio_button :brother, "三男" %> 三男
+        <%= f.radio_button :brother, "その他" %> その他
+      </div>
+      <% else %>
+      <%= f.label "姉妹:" %><br />
+      <div class="radio-inline">
+        <%= f.radio_button :brother, "長女" %> 長女
+        <%= f.radio_button :brother, "一人っ子" %> 一人っ子
+        <%= f.radio_button :brother, "次女" %> 次女
+        <%= f.radio_button :brother, "三女" %> 三女
+        <%= f.radio_button :brother, "その他" %> その他
+      </div>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= f.label "学歴:" %><br />
+      <%= f.select :study, [["高校卒業", "高校卒業"], ["専門学校卒業", "専門学校卒業"], ["短期大学卒業", "短期大学卒業"], ["大学卒業", "大学卒業"], ["大学院卒業", "大学院卒業"], ["その他", "その他"]], :prompt=> "選択してください" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "職業:" %><br />
+      <%= f.text_field :job, autofocus: true %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "年収:" %><br />
+      <%= f.select :money, [["~200万", 200], ["200～400万", "200～400"], ["400～600万", "400～600"], ["600～800万", "600～800"], ["800～1000万", "800～1000"], ["1000～1500万", "1000～1500"], ["1500万～", 1500]], :prompt=> "選択してください" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "休日:" %><br />
+      <div class="radio-inline">
+        <%= f.radio_button :holiday, "土日" %> 土日
+        <%= f.radio_button :holiday, "平日" %> 平日
+        <%= f.radio_button :holiday, "不定期" %> 不定期
+        <%= f.radio_button :holiday, "その他" %> その他
+      </div>
+    </div>
+    
+    <div class="field">
+      <%= f.label "結婚歴:" %><br />
+    <div class="radio-inline">
+      <%= f.radio_button :marriage, "結婚歴なし" %> 結婚歴なし
+      <%= f.radio_button :marriage, "離婚" %> 離婚
+      <%= f.radio_button :marriage, "死別" %> 死別
+    </div>
+    
+    <div class="field">
+      <%= f.label "子供の有無:" %><br />
+    <div class="radio-inline">
+      <%= f.radio_button :children, "いる" %> いる
+      <%= f.radio_button :children, "いない" %> いない
+    </div>
+    
+    <div class="field">
+      <%= f.label "家事・育児:" %><br />
+      <div class="radio-inline">
+        <%= f.radio_button :housework, "得意" %> 得意
+        <%= f.radio_button :housework, "出来る" %> 出来る
+        <%= f.radio_button :housework, "普通" %> 普通
+        <%= f.radio_button :housework, "少し出来る" %> 少し出来る
+        <%= f.radio_button :housework, "不得意" %> 不得意
+      </div>
+    </div>
+    
+    <div class="field">
+      <%= f.label "結婚に対する意思:" %><br />
+      <%= f.select :intention, [["すぐにでもしたい", "すぐにでもしたい"], ["2～3年のうちに", "2～3年のうちに"], ["いい人がいればしたい", "いい人がいればしたい"], ["今のところ結婚は考えていない", "今のところ結婚は考えていない"], ["わからない", "わからない"]], :prompt=> "選択してください" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "出会うまでの希望:" %><br />
+      <%= f.select :hope, [["マッチング後にまずは会いたい", "マッチング後にまずは会いたい"], ["気が合えば会いたい", "気が合えば会いたい"], ["きちんとメッセージ交換を重ねてから会いたい", "きちんとメッセージ交換を重ねてから会いたい"]], :prompt=> "選択してください" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "同居人:" %><br />
+      <%= f.select :housemate, [["一人暮らし", "一人暮らし"], ["実家暮らし", "実家暮らし"], ["子供と一緒", "子供と一緒"], ["身内と一緒", "身内と一緒"], ["友達と一緒", "友達と一緒"], ["ペットと一緒", "ペットと一緒"], ["その他", "その他"]], :prompt=> "選択してください" %>
+    </div>
+    
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+  
+  
+  <br>
+    <div class="actions">
+      <%= f.submit "Update" %>
+    </div>
+  <% end %>
+  
+  
+  
+  <p><%= button_to "キャンセル", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  
+  <%= link_to "Back", :back %>
+</div>
+
+
+<style>
+    label span.label {
+        font-weight: bold;
+        color: red;
+    }
+</style>

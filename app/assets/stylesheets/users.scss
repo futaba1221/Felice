@@ -1,0 +1,189 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+//** user-index **//
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+main .search{
+    margin: 5px 5px 5px 950px;
+}
+
+// #mask{
+//   position: fixed;
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(0,0,0,.4);
+//   z-index: 2;
+// }
+
+// #from_search{
+//   position: relative;
+//   top: 200;
+//   margin: auto;
+//   width: 800px;
+//   height: 500px;
+//   z-index: 100;
+
+// }
+
+main .card-user{
+    Width: 500px;
+    margin: 10px;
+    height: 300px;
+    border: solid 1px Black;
+    border-radius: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-user img{
+    Width: 250px;
+    height: 280px;
+    margin: 8px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+.card-body{
+    position: absolute;
+    top: 0px;
+    left: 260px;
+    z-index: 2;
+    margin: 10px;
+    padding: 0px;
+}
+
+.card-body ul{
+    list-style-type: none;
+    padding: 0px;
+}
+
+.card-body p{
+    font-size: 20px;
+    margin: 0px;
+}
+
+/* users/show ================================ */
+.user {
+  border: solid 1px black;
+  position: relative;
+  // height: 1500px;
+}
+
+.show-image_names {
+  // width: 544px;
+  // height: 500px;
+  // margin: 10px;
+  // object-fit: cover;
+  width: 250px;
+  height: 250px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+  margin: 30px 100px;
+}
+
+.self-PR .btn{
+  width: 230px;
+  height: 50px;
+  margin: 10px;
+}
+.btn-show{
+  font-size: 25px;
+  padding: 5px;
+  text-align: center;
+}
+
+
+
+.user-show-posts{
+  width: 1090px;
+  height: 500px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  margin: 10px;
+}
+.users-index-item {
+  width: 1000px;
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+}
+
+.user-left img {
+  width: 50px;
+  height: 50px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+
+.post-user-name a:hover {
+  color: #3ecdc6;
+}
+
+.user-left {
+  float: left;
+  width: 10%;
+}
+
+.user-right {
+  float: left;
+  width: 90%;
+  padding-left: 25px;
+  text-align: left;
+}
+
+
+.self-PR{
+    position: absolute;
+    top: 50px;
+    left: 550px;
+}
+
+.user-introduction{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-introduction ul{
+    list-style-type: none;
+    padding: 0px;
+}
+
+.user-introduction p{
+    font-size: 20px;
+    margin: 0px;
+}
+.card-body1 {
+    width: 534px;
+    margin: 10px;
+    padding: 0px;
+}
+.card-body2 {
+    width: 534px;
+    margin: 10px;
+    padding: 0px;
+}
+.card-body3 {
+    width: 534px;
+    margin: 10px;
+    padding: 0px;
+}
+.card-body4 {
+    width: 534px;
+    margin: 10px;
+    padding: 0px;
+}
+
+

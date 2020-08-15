@@ -1,0 +1,113 @@
+<%= render "form-mypage" %>
+
+<% if @user.image_names? %>
+  <div class="post-show-image-area">
+   <% @user.image_names.each do |image_name| %>
+     <%= image_tag image_name, class: "show-image" %>
+   <% end %>
+  </div>
+<% end %>
+
+ <div class= "user-introduction">
+   <div class="card-body1">
+      <p>自己PR: <%= @user.self_pr %></p>
+      <h4>基本情報</h4> 
+      <ul>
+        <li>
+          <p>ﾆｯｸﾈｰﾑ: <%= @user.name %></p>
+        </li>
+        <li>
+          <p>年齢:  歳</p>
+        </li>
+        <li>
+          <p>血液型: <%= @user.blood %>型</p>
+        </li>
+        <li>
+          <% if @user.gender == "m" %>
+            <p>兄弟: <%= @user.brother %></p>
+          <% else %>
+            <p>姉妹: <%= @user.brother %></p>
+          <% end %>
+        </li>
+        <li>
+          <p>住居地: <%= Prefecture.find_by(id: @user.prefecture_id).name %></p>
+        </li>
+        <li>
+          <p>出身地: <%= Birthplace.find_by(id: @user.birthplace_id).name %></p>
+        </li>
+      </ul>
+   </div>
+   <div class="card-body2">
+      <h4>学歴／職業／外見</h4> 
+      <ul>
+        <li>
+          <p>学歴: <%= @user.study %></p>
+        </li>
+        <li>
+          <p>職業: <%= @user.job %></p>
+        </li>
+        <li>
+          <% if @user.money == "200" then %>
+            <p>年収: ~<%= user.money %>万円</p>
+          <% elsif @user.money == "1500" then %>
+            <p>年収: 1500万円以上</p>
+          <% else %>
+            <p>年収: <%= @user.money %>万円</p>
+          <% end %>
+        </li>
+        <li>
+          <% if @user.figure == "xs" then %>
+            <p>体型: 細身</p>
+          <% elsif @user.figure == "s" then %>
+            <p>体型: やや細身</p>
+          <% elsif @user.figure == "m" then %>
+            <p>体型: 普通</p>
+          <% elsif @user.figure == "l" then %>
+            <p>体型: ややぽっちゃり</p>
+          <% else %>
+            <p>体型: ぽっちゃり</p>
+          <% end %>
+        </li>
+      </ul>
+   </div>
+   <div class="card-body3">
+      <h4>恋愛／結婚観</h4> 
+      <ul>
+        <li>
+          <p>結婚歴: <%= @user.marriage %></p>
+        </li>
+        <li>
+          <p>子供の有無: <%= @user.children %></p>
+        </li>
+        <li>
+          <p>結婚に対する意思: <%= @user.intention %></p>
+        </li>
+        <li>
+          <p>家事・育児: <%= @user.housework %></p>
+        </li>
+        <li>
+          <p>出会うまでの希望:<%= @user.hope %></p>
+        </li>
+      </ul>
+   </div>
+   <div class="card-body4">
+      <h4>性格／趣味／生活</h4> 
+      <ul>
+        <li>
+          <p>同居人: <%= @user.housemate %></p>
+        </li>
+        <li>
+          <p>休日: <%= @user.holiday %></p>
+        </li>
+        <li>
+          <p>お酒:<%= @user.liquor %></p>
+        </li>
+        <li>
+          <p>タバコ: <%= @user.tobacco %></p>
+        </li>
+        <li>
+          <p>好きなこと・趣味:<%= @user.like %></p>
+      </ul>
+   </div>
+ </div>
+</div>

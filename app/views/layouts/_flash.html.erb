@@ -1,0 +1,14 @@
+<% if flash[:notice] %>
+ <div class="flash">
+     <%= flash[:notice] %>
+ </div>
+<% end %>
+
+<style>
+    .flash {
+       background: #7fffd4;
+       height: 50px;
+       text-align: center;
+       line-height: 50px;
+    }
+</style>

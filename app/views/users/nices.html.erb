@@ -1,0 +1,6 @@
+<%= render "form-mypage" %>
+
+    <% @nices.each do |nice| %>
+      <% post = Post.find_by(id: nice.post_id) %>
+      <%= nice.post.title %>
+    <% end %>
