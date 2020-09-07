@@ -50,11 +50,11 @@
     <div class="field">
       <%= f.label "体型:" %><br />
     <div class="radio-inline">
-      <%= f.radio_button :figure, :XS %> 細身
-      <%= f.radio_button :figure, :S %> やや細身
-      <%= f.radio_button :figure, :M %> 普通
-      <%= f.radio_button :figure, :L %> ややぽっちゃり
-      <%= f.radio_button :figure, :XL %> ぽっちゃり
+      <%= f.radio_button :figure, :xs %> 細身
+      <%= f.radio_button :figure, :s %> やや細身
+      <%= f.radio_button :figure, :m %> 普通
+      <%= f.radio_button :figure, :l %> ややぽっちゃり
+      <%= f.radio_button :figure, :xl %> ぽっちゃり
     </div>
     
     <div class="field">
@@ -125,7 +125,7 @@
     
     <div class="field">
       <%= f.label "年収:" %><br />
-      <%= f.select :money, [["~200万", 200], ["200～400万", "200～400"], ["400～600万", "400～600"], ["600～800万", "600～800"], ["800～1000万", "800～1000"], ["1000～1500万", "1000～1500"], ["1500万～", 1500]], :prompt=> "選択してください" %>
+      <%= f.select :money, [["~200万", 199], ["200～400万", 200], ["400～600万", 400], ["600～800万", 600], ["800～1000万", 800], ["1000～1500万", 1000], ["1500万～", 1500]], :prompt=> "選択してください" %>
     </div>
     
     <div class="field">

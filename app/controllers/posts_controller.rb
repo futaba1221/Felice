@@ -30,7 +30,7 @@ class PostsController < ApplicationController
    
     if @post.save
      flash[:notice] = "投稿されました"
-     redirect_to posts_path
+     redirect_to "/users/#{current_user.id}/diarys"
     else
      flash[:notice] = "投稿できませんでした"
      render "new"
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find_by(id: params[:id])
     @post.destroy
-    redirect_to posts_path
+    redirect_to "/users/#{current_user.id}/diarys"
   end
  
   private

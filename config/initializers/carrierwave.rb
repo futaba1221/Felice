@@ -9,8 +9,8 @@ CarrierWave.configure do |config|
     config.fog_directory  = 'felice-chizuru'
     config.fog_credentials = {
       provider: 'AWS',
-     #  aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-     #  aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
 
 # 直打ちのままgithubには絶対にpushしない 
       region: "ap-northeast-1",

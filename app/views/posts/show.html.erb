@@ -1,13 +1,19 @@
+<div class="user">
+  <div class="self-PR">
+      <h1><%= @user.name %></h1>
+      
+      <div>follower..<%= @user.followers.count %></div>
 
-<div>
+      <h2>年齢: <%= age_culc(@user.birthday) %>歳　居住地:<%= Prefecture.find_by(id: @user.prefecture_id).name %></h2>
+
+     <%= link_to "プロフィール確認", user_path(@user), class: "btn btn-info btn-show" %>
+  </div>
   <% if @user.image_names.present? %>
-     <%= image_tag @user.image_names[0] %>
+     <%= image_tag @user.image_names[0], class: "show-image_names" %>
   <% else %>
-   <%= image_tag "/no-image.png" %>
-  <% end %>
-</div>
-<h2><%= link_to @user.name, "/users/#{@user.id}" %></h2>
-<h2>title:<%= @post.title %></h2>
+   <%= image_tag "/no-image.png", class: "show-image_names" %>
+   
+  <% end %><h2>title:<%= @post.title %></h2>
 <% if @post.images? %>
   <div class="post-show-image-area">
    <% @post.images.each do |image| %>
@@ -36,7 +42,7 @@
       post_path,
       method: :delete,
       class: "command",
-      data: { confirm: "Sure?" } %>
+      data: { confirm: "削除しますか？" } %>
    <% end %>
    
 <h3>Comments</h3>
@@ -58,7 +64,7 @@
       post_comment_path(@post, comment),
       method: :delete,
       class: "command",
-      data: { confirm: "Sure?" } %>
+      data: { confirm: "削除しますか？" } %>
    <% end %>
  <% end %>
 </li>
@@ -73,5 +79,6 @@
 <p>
   <%= f.submit %>
 </p>
+<%= link_to "戻る", :back %>
  <% end %>
 <% end %>

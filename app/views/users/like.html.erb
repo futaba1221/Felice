@@ -2,6 +2,9 @@
 
 <% @relationships.each do |users| %>
  <% User.where(id: users.followed_id).each do |user| %>
+ <% if user.status == true %>
+  <div style="display:none;"><%= user.name %></div>
+ <% else %>
   <div class="likestyle">
   <% if user.image_names.present? %>
      <%= image_tag user.image_names[0], class: "show-image_names2" %>
@@ -21,5 +24,7 @@
     </div>
   </div>   
   <% end %> 
+ <% end %>
 <% end %>
 
+<%= link_to "戻る", :back %>

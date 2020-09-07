@@ -1,1 +1,5 @@
 <h1>よくある質問</h1>
+
+<% if user_signed_in? %>
+ <%= link_to "退会", "/users/#{current_user.id}/hide", method: :put, data: { confirm: "本当に退会しますか？"} %>
+<% end %>

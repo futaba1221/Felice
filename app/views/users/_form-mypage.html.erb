@@ -5,21 +5,25 @@
       <!--<div>folloing..< @user.following.count %></div>-->
       <div>follower..<%= @user.followers.count %></div>
       <div><%= render 'follow_form' if user_signed_in? %></div>
-      
-      <h2>年齢: 　歳　居住地:<%= Prefecture.find_by(id: @user.prefecture_id).name %></h2>
-    <% if @user.id === current_user.id %>
-     <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-info btn-show" %>
-     <%= link_to "あなたからいいね!", "/users/#{current_user.id}/like", class: "btn btn-info btn-show"%>
-     <!--<%= link_to "いいね", "/users/#{@user.id}/nices", class: "btn btn-info btn-show" %>-->
-    <% end %>
-     <%= link_to "プロフィール確認", user_path(@user), class: "btn btn-info btn-show" %>
-     <%= link_to "投稿日記", "/users/#{@user.id}/diarys", class: "btn btn-info btn-show"%>
+      <% if @user.birthday.present? %>
+       <span>年齢: <%= age_culc(@user.birthday) %>歳</span>
+      <% end %>
+      <% if @user.prefecture_id %>
+       <span>居住地: <%= Prefecture.find_by(id: @user.prefecture_id).name %></span>
+      <% end %>
+      <% if @user.id === current_user.id %>
+       <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-info btn-show" %>
+       <%= link_to "あなたからいいね!", "/users/#{current_user.id}/like", class: "btn btn-info btn-show"%>
+       <!--<%= link_to "いいね", "/users/#{@user.id}/nices", class: "btn btn-info btn-show" %>-->
+      <% end %>
+      <%= link_to "プロフィール確認", user_path(@user), class: "btn btn-info btn-show" %>
+      <%= link_to "投稿日記", "/users/#{@user.id}/diarys", class: "btn btn-info btn-show"%>
   </div>
-  <% if @user.image_names.present? %>
-     <%= image_tag @user.image_names[0], class: "show-image_names" %>
-  <% else %>
-   <%= image_tag "/no-image.png", class: "show-image_names" %>
-  <% end %>
+      <% if @user.image_names.present? %>
+         <%= image_tag @user.image_names[0], class: "show-image_names" %>
+      <% else %>
+       <%= image_tag "/no-image.png", class: "show-image_names" %>
+      <% end %>
 
  
  

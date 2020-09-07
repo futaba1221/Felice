@@ -5,19 +5,16 @@ class Relationship < ApplicationRecord
   validates :follower_id, presence: true
   validates :followed_id, presence: true
   
-  # ユーザーをフォローする
-  def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+  def create
+    user = User.find(params[:followed_id])
+    current_user.follow(user)
+    redirect_to user
   end
 
-  # ユーザーをフォロー解除する
-  def unfollow(other_user)
-    active_relationships.find_by(followed_id: other_user.id).destroy
-  end
-
-  # 現在のユーザーがフォローしてたらtrueを返す
-  def following?(other_user)
-    following.include?(other_user)
+  def destroy
+    user = Relationship.find(params[:id]).followed
+    current_user.unfollow(user)
+    redirect_to user
   end
   
   

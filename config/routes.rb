@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'searches/index'
-
-  get 'searches/new'
-
-  get 'searches/show'
-
-  get 'searches/edit'
 
  devise_for :users, :controllers => {
   :registrations => 'users/registrations',
@@ -17,16 +10,22 @@ Rails.application.routes.draw do
   get "users/:id/match" => "users#match"
   get "users/:id/like" => "users#like"
   get "users/:id/relike" => "users#relike"
+  put "users/:id/hide" => "users#hide"
+  get "users/:id/reregistration" => "users#reregistration"
+  post "users/:id/restoration" => "users#restoration"
   
-  
-  
-  resources :users, :only => [:index, :show] do
+  resources :users, :only => [:index, :show, :destroy] do
    member do
        get :following, :followers
    end
-     resources :relationships, only: [:index, :create, :destroy]
-     resources :searches
-  end
+   
+   resources :footprints, only: [:index]
+   resources :searches
+  end 
+  
+  
+
+  resources :relationships, only: [:index, :create, :destroy]
   
   resources :posts, :only => [:new, :create, :edit, :update, :destroy] do
     resources :comments, :only => [:new,:create, :destroy, :edit, :update] do
@@ -36,8 +35,8 @@ Rails.application.routes.draw do
   resources :posts, :only => [:index, :show]
   
 
-  
-  
+  get "footprint" => "footprints#new"
+  post "footprint" => "footprints#create"
   post "nices/:post_id/create" => "nices#create"
   post "nices/:post_id/destroy" => "nices#destroy"
   

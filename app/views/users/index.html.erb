@@ -1,52 +1,58 @@
 <main>
 <% @users.each do |user| %>
-<div class="card-user">
- <%= link_to user_path(user) do %>
-  <% if user.image_names.present? %>
-   <%= image_tag user.image_names[0], class: "index-image" %>
-  <% else %>
-   <%= image_tag "/no-image.png", class: "index-image" %>
-  <% end %>
-    <div class="card-body">
-      <ul>
-        <li>
-          <p>ﾆｯｸﾈｰﾑ: <%= user.name.truncate(8)%></p>
-        </li>
-        <li>
-          <p>年齢: 歳</p>
-        </li>
-        <li>
-          <p>居住地: <%= Prefecture.find_by(id: @user.prefecture_id).name %></p>
-        </li>
-        <li>
-          <p>身長: <%= user.stature %> cm</p>
-        </li>
-        <li>
-          <p>同居人: <%= user.housemate %></p>
-        </li>
-        <li>
-          <% if user.gender == "m" %>
-            <p>兄弟: <%= user.brother %></p>
-          <% else %>
-            <p>姉妹: <%= user.brother %></p>
+ <% if user.status == true %>
+  <div style="display:none;"><%= user.name %></div>
+ <% else %>
+  <div class="card-user">
+   <%= link_to user_path(user) do %>
+    <% if user.image_names.present? %>
+     <%= image_tag user.image_names[0], class: "index-image" %>
+    <% else %>
+     <%= image_tag "/no-image.png", class: "index-image" %>
+    <% end %>
+      <div class="card-body">
+        <ul>
+          <li>
+            <p>ﾆｯｸﾈｰﾑ: <%= user.name %></p>
+          </li>
+          <li>
+          <% if @user.birthday.present? %>
+            <p>年齢: <%= age_culc(user.birthday) %>歳</p>
           <% end %>
-        </li>
-        <li>
-          <p>職種: <%= user.job %></p>
-        </li>
-        <li>
-          <% if user.money == "200" then %>
-            <p>年収: ~<%= user.money %>万円</p>
-          <% elsif user.money == "1500" then %>
-            <p>年収: 1500万円以上</p>
-          <% else %>
-            <p>年収: <%= user.money %>万円</p>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  <% end %>
-</div>
+          </li>
+          <li>
+            <p>居住地: <%= Prefecture.find_by(id: user.prefecture_id).name %></p>
+          </li>
+          <li>
+            <p>身長: <%= user.stature %> cm</p>
+          </li>
+          <li>
+            <p>同居人: <%= user.housemate %></p>
+          </li>
+          <li>
+            <% if user.gender == "m" %>
+              <p>兄弟: <%= user.brother %></p>
+            <% else %>
+              <p>姉妹: <%= user.brother %></p>
+            <% end %>
+          </li>
+          <li>
+            <p>職種: <%= user.job %></p>
+          </li>
+          <li>
+            <% if user.money == "200" then %>
+              <p>年収: ~<%= user.money %>万円</p>
+            <% elsif user.money == "1500" then %>
+              <p>年収: 1500万円以上</p>
+            <% else %>
+              <p>年収: <%= user.money %>万円</p>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+ <% end %>
 <% end %>
 </main>
 

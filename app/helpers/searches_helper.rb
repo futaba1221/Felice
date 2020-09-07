@@ -13,7 +13,7 @@ module SearchesHelper
         when 5 then
           "1000万～1200万"
         when 6 then
-          "1200万以上"  
+          "1500万以上"  
         end
     end
     

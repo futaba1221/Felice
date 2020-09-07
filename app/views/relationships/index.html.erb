@@ -1,6 +1,9 @@
 <h1>マッチングリスト</h1>
  <div class="match_list">
  <% @friends.each do |friend| %>
-  <div><%= friend.name %></div>
-
+  <% if friend.status == true %>
+   <div><%= friend.name %>は退会済ユーザーです</div>
+  <% else %>
+   <div><%= friend.name %></div>
+  <% end %>
  <% end %>

@@ -9,7 +9,7 @@
 <% @posts.each do |post| %>
 <li>
 <div class="card-user">
- <%= link_to post_path(post) do %>
+ <%= link_to "/posts/#{post.id}" do %>
   <% if post.images.present? %>
    <%= image_tag post.images[0], class: "index-image" %>
   <% else %>

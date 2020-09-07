@@ -1,0 +1,12 @@
+<h1>再登録</h1>
+
+<div>
+  <%= link_to("/users/#{@user.id}", {method: "delete"}) do %>
+    <p>新規登録</p>
+  <% end %>
+</div>
+<div>
+  <%= link_to("/users/#{@user.id}/restoration", {method: "post"}) do %>
+    <p>過去登録の復元<p>
+  <% end %>
+</div>

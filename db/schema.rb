@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200812090146) do
+ActiveRecord::Schema.define(version: 20200831023237) do
 
   create_table "birthplaces", force: :cascade do |t|
     t.string   "name"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20200812090146) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
+  create_table "footprints", force: :cascade do |t|
+    t.string   "visiter_id"
+    t.string   "visited_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "status",     default: false, null: false
+    t.index ["visited_id"], name: "index_footprints_on_visited_id"
+    t.index ["visiter_id"], name: "index_footprints_on_visiter_id"
   end
 
   create_table "nices", force: :cascade do |t|
@@ -52,8 +62,9 @@ ActiveRecord::Schema.define(version: 20200812090146) do
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "status",      default: false, null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
@@ -87,8 +98,8 @@ ActiveRecord::Schema.define(version: 20200812090146) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -96,8 +107,8 @@ ActiveRecord::Schema.define(version: 20200812090146) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "name"
     t.date     "birthday"
     t.string   "gender"
@@ -106,11 +117,13 @@ ActiveRecord::Schema.define(version: 20200812090146) do
     t.string   "figure"
     t.string   "image_names"
     t.string   "brother"
-    t.string   "prefecture_id"
-    t.string   "birthplace_id"
+    t.string   "housing"
+    t.string   "birthplace"
     t.string   "study"
     t.string   "job"
     t.string   "money"
+    t.string   "prefecture_id"
+    t.string   "birthplace_id"
     t.string   "marriage"
     t.string   "children"
     t.string   "intention"
@@ -123,6 +136,7 @@ ActiveRecord::Schema.define(version: 20200812090146) do
     t.string   "like"
     t.text     "self_pr"
     t.date     "deleted_at"
+    t.boolean  "status",                 default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

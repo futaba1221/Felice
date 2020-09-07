@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :searches, dependent: :destroy
-  
+  has_many :footprints, dependent: :destroy
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -25,11 +25,22 @@ class User < ApplicationRecord
                                    dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  
+  
+  #Footprintの多多       
+  has_many :active_footprints, class_name:  "Footprintp",
+                                  foreign_key: "visiter_id",
+                                  dependent:   :destroy
+  has_many :passive_footprints, class_name:  "Footprintp",
+                                   foreign_key: "visited_id",
+                                   dependent:   :destroy
+  has_many :visiting, through: :active_footprints, source: :visited
+  has_many :visiters, through: :passive_footprints, source: :visiter  
 
 
   # ユーザーをフォローする
   def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+    following << other_user
   end
 
   # ユーザーをフォロー解除する
@@ -42,20 +53,10 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
   
-# 物理削除の代わりにユーザーの`deleted_at`をタイムスタンプで更新
-  def soft_delete  
-    update_attribute(:deleted_at, Time.current)  
+  def active_for_authentication?
+    super && (self.status == false)
   end
-
-  # ユーザーのアカウントが有効であることを確認 
-  def active_for_authentication?  
-    super && !deleted_at  
-  end  
-
-  # 削除したユーザーにカスタムメッセージを追加します  
-  def inactive_message   
-    !deleted_at ? super : :deleted_account  
-  end 
+  
   
   
   #画像      

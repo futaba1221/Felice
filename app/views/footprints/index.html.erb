@@ -1,0 +1,15 @@
+<h3>足跡</h3>
+<% @footprints.each do |footprint| %>
+  <% logger.debug("----------- index.html #{footprint.id}") %>
+  <% user = User.find_by(id: footprint.visiter_id.to_i) %>
+  <div>
+      <% if user.image_names.present? %>
+          <%= image_tag user.image_names[0], class: "footprint-index-image" %>
+      <% else %>
+          <%= image_tag "/no-image.png", class: "footprint-index-image" %>
+      <% end %>
+      <%= link_to user.name, user_path(user) %>
+      <span class="footprint_created_at"><%= footprint.created_at.strftime("%m/%d %H:%M") %></span>
+      <span><%= Footprint.where(visiter_id: user.id ,visited_id: current_user.id).count %></span>
+  </div>
+<% end %>

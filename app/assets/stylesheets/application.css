@@ -75,3 +75,20 @@ text-decoration: none;
 nav{
  text-align: center;
 }
+
+.nav_like{
+ position: relative;
+ top: -10px;
+}
+
+.bell{
+ position: relative;
+}
+
+.new_like{
+ font-size: 1px;
+ color: crimson;
+ position: relative;
+ left: -19px;
+ top: -10px;
+}

@@ -15,18 +15,26 @@
   
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-        <%= link_to"ハッピーレポート", home_happy_path , class: "nav-item nav-link" %>
-        <%= link_to "料金ついて", home_felice_path , class: "nav-item nav-link" %>
-        <%= link_to "よくある質問", home_question_path , class: "nav-item nav-link" %>
-        
         <% unless user_signed_in? %>
+            <%= link_to"ハッピーレポート", home_happy_path , class: "nav-item nav-link" %>
+            <%= link_to "料金ついて", home_felice_path , class: "nav-item nav-link" %>
+            <%= link_to "よくある質問", home_question_path , class: "nav-item nav-link" %>
             <%= link_to "ログイン", new_user_session_path, class: "nav-new" %>
             <%= link_to "会員登録", new_user_registration_path , class: "nav-new" %>
         <% end %>
         <% if user_signed_in? %>
-            <%= link_to "日記一覧", posts_path , class: "nav-new" %>
-            <%= link_to "ユーザー一覧", users_path , class: "nav-new" %>
-            <%= link_to "いいね!一覧", "/users/#{current_user.id}/relike" , class: "nav-new" %>
+            <%= link_to "ユーザー検索", user_searches_path(current_user.id) , class: "dropdown-item nav-new" %>
+            <%= link_to "日記一覧", posts_path , class: "dropdown-item nav-new" %>
+            <%= link_to "/users/#{current_user.id}/relike" , class: "dropdown-item nav-new" do %>
+               <% if new_like_to_me.count > 0 %>
+                   <span class="nav_like">いいね!一覧</span>
+                   <span><i class="far fa-bell fa-2x"></i></span>
+                   <span class="new_like"><%= new_like_to_me.count %></span>
+               <% else %>
+                   <span>いいね!一覧</span>
+               <% end %>
+            <% end %>
+            <%= link_to "マッチング", relationships_path, class: "dropdown-item nav-new" %></br>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Mypage
@@ -35,8 +43,8 @@
                 <% if user_signed_in? %>
                   <%= link_to "myprofile", "/users/#{current_user.id}" , class: "dropdown-item nav-new" %>
                   <%= link_to "日記投稿", new_post_path, class: "dropdown-item nav-new" %>
-                  <%= link_to "ユーザー検索", user_searches_path(current_user.id) , class: "dropdown-item nav-new" %>
-                  <%= link_to "マッチングリスト", user_relationships_path(current_user) , class: "dropdown-item nav-new" %></br>
+                  <%= link_to "足跡", user_footprints_path(current_user), class: "dropdown-item nav-new" %>
+                  <%= link_to "よくある質問", home_question_path, class: "dropdown-item nav-new" %>
                   <%= link_to "ログアウト", destroy_user_session_path, method: "delete" , class: "dropdown-item nav-log" %>
                 <% end %>
               </div>

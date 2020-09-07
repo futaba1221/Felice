@@ -21,6 +21,7 @@ class SearchesController < ApplicationController
     def show
         
         @search = Search.find_by(id: params[:id])
+        # logger.debug("=============================== search controller search.height[0] = #{params[:search][:height]}")
         
         @users = []
         search_age(@search,@users)
@@ -32,6 +33,14 @@ class SearchesController < ApplicationController
         @users2 = @users
         @users = []
         search_height(@users2, @users)
+        
+        @users2 = @users
+        @users = []
+        search_residence(@users2, @users)
+
+        @users2 = @users
+        @users = []
+        search_money(@users2, @users)
 
         
         
@@ -117,5 +126,44 @@ class SearchesController < ApplicationController
         end
       end
     
+      def search_residence(users2, users)
+        users2.each do |user|
+          if @search.prefecture_id.include?(user.prefecture_id)
+            users << user
+          end
+        end    
+      end
+      
+      def search_money(users2, users)
+        users2.each do |user|
+            if @search.money == "nil"
+                users << user
+            elsif @search.money == "1"
+                if user.money == "200" or user.money == "400"
+                    users << user
+                end
+            elsif @search.money == "2"
+                if user.money == "400" or user.money == "600"
+                    users << user
+                end
+            elsif @search.money == "3"
+                if user.money == "600" or user.money == "800"
+                    users << user
+                end
+            elsif @search.money == "4"
+                if user.money == "800" or user.money == "1000"
+                    users << user
+                end
+            elsif @search.money == "5"
+                if user.money == "1000" or user.money == "1200"
+                    users << user
+                end
+            elsif @search.money == "6"
+                if user.money == "1500"
+                    users << user
+                end
+            end
+        end
+      end
  
 end

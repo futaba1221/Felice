@@ -1,3 +1,4 @@
+/*global $*/ //←最初に導入
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -15,3 +16,6 @@
 //= require turbolinks
 //= require_tree .
 
+$(function(){
+    // $("#footprint_js").trigger("click");
+});

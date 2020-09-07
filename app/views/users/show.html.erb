@@ -1,8 +1,12 @@
+<!--足跡機能-->
+<% unless @user.id == current_user.id %>
+  <% footprint(@user) %>
+<% end %>
 <%= render "form-mypage" %>
 
 <% if @user.image_names? %>
   <div class="post-show-image-area">
-   <% @user.image_names.each do |image_name| %>
+   <% @user.image_names.drop(1).each do |image_name| %>
      <%= image_tag image_name, class: "show-image" %>
    <% end %>
   </div>
@@ -17,7 +21,9 @@
           <p>ﾆｯｸﾈｰﾑ: <%= @user.name %></p>
         </li>
         <li>
-          <p>年齢:  歳</p>
+        <% if @user.birthday.present? %>
+          <p>年齢: <%= age_culc(@user.birthday) %> 歳</p>
+        <% end %>
         </li>
         <li>
           <p>血液型: <%= @user.blood %>型</p>
@@ -30,10 +36,14 @@
           <% end %>
         </li>
         <li>
+        <% if @user.prefecture_id.present? %>
           <p>住居地: <%= Prefecture.find_by(id: @user.prefecture_id).name %></p>
+        <% end %>
         </li>
         <li>
+        <% if @user.birthplace_id.present? %>
           <p>出身地: <%= Birthplace.find_by(id: @user.birthplace_id).name %></p>
+        <% end %>
         </li>
       </ul>
    </div>
@@ -47,12 +57,13 @@
           <p>職業: <%= @user.job %></p>
         </li>
         <li>
-          <% if @user.money == "200" then %>
-            <p>年収: ~<%= user.money %>万円</p>
-          <% elsif @user.money == "1500" then %>
+          <% money = @user.money.to_i %>
+          <% if money == 199 then %>
+            <p>年収: ~<%= money +1  %>万円</p>
+          <% elsif money == 1500 then %>
             <p>年収: 1500万円以上</p>
           <% else %>
-            <p>年収: <%= @user.money %>万円</p>
+            <p>年収: <%= money %>~<%= money +200 %>万円</p>
           <% end %>
         </li>
         <li>
@@ -111,3 +122,6 @@
    </div>
  </div>
 </div>
+
+<%= link_to "戻る", :back %>
+

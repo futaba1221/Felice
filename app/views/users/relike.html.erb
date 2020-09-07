@@ -1,25 +1,94 @@
 <h1>いいね！されたリスト</h1>
 
-<% @relationships.each do |users| %>
-<!--< active_relationship.follower.each do |users| %>-->
-<% User.where(id: users.follower_id).each do |user| %>
+<h3>新たにいいねした人</h3>
+
+<% @unconfirm_relations.each do |unconfirm_relation| %>
   <div class="likestyle">
-  <% if user.image_names.present? %>
-     <%= image_tag user.image_names[0], class: "show-image_names2" %>
-  <% else %>
-   <%= image_tag "/no-image.png", class: "show-image_names2" %>
-  <% end %>
-  
+   <% user = User.find_by(id: unconfirm_relation.follower_id) %>
+    <% if user.status == true %>
+     <div style="display:none;"><%= user.name %></div>
+    <% else %>
+     
+    <%= link_to user_path(user) do %>
+     <% if user.image_names.present? %>
+       <%= image_tag user.image_names[0].url, class: "show-image_names2" %>
+     <% else %>
+       <%= image_tag "/no-image.png", class: "show-image_names2" %>
+     <% end %>
+    <% end %>
      <div class="like">
       <ul>
-      <li>
-       <h2><%= link_to(user.name, "/users/#{users.follower_id}") %></h2>
-      </li>
-      <li>
-       <h2>  歳   <%= Prefecture.find_by(id: user.prefecture_id).name %></h2>
-      </li>
-     </ul>
-    </div>
+       <li>
+          <h2><%= user.name %></h2>
+       </li>
+       <li>
+        <% if current_user.following?(user) %>
+         <i class="fas fa-heart"></i>
+         <% else %>
+          どうする？
+         <% end %>
+        </li>
+       </ul>
+      </div>
   </div>
+   <% end %>
+  <% end %>
+
+<hr>
+<h3>以前いいねした人</h3>
+<%  logger.debug("---------------------- relike html @confirm_relations.count = #{@confirm_relations.count}") %>
+<% @confirm_relations.each do |confirm_relation| %>
+  <div class="likestyle">
+    <% user = User.find_by(id: confirm_relation.follower_id) %>
+     <% if user.status == true %>
+      <div style="display:none;"><%= user.name %></div>
+     <% else %>
+
+      <%= link_to user_path(user) do %>
+      <% if user.image_names.present? %>
+        <%= image_tag user.image_names[0].url, class: "show-image_names2" %>
+      <% else %>
+        <%= image_tag "/no-image.png", class: "show-image_names2" %>
+      <% end %>
+     <% end %>
+     <div class="like">
+      <ul>
+       <li>
+        <h2><%= user.name %></h2>
+       </li>
+       <li>
+        <% if current_user.following?(user) %>
+         <i class="fas fa-heart"></i>
+        <% else %>
+         どうする
+        <% end %>
+       </li>
+      </ul>
+   </div>
+  </div>
+  <% end %>
 <% end %>
+
+<% @unconfirm_relations.each do |unconfirm_relation| %>
+  <% unconfirm_relation.update(status: true) %>
 <% end %>
+
+
+
+
+
+<style>
+ .user-relike-image {
+   border-radius: 50%;
+   width: 50px;
+   height: 50px;
+   object-fit: cover;
+ }
+ 
+ .fa-heart {
+  color: pink;
+ }
+ 
+</style>
+
+
