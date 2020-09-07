@@ -56,14 +56,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
+    logger.debug("--------------- registrations update name = #{params[:user][:name]}")
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :birthday, :email, :password, :stature, :blood, :figure, :prefecture_id, :birthplace_id, :self_pr, :brother, :study, :job, :money, :marriage, :children, :intention,  :housework, :hope, :housemate, :holiday, :liquor, :tobacco, :like, image_names: []])
-    redirect_to "/users/#{current_user.id}"
   end
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     edit_user_registration_path
   end
+  
+    def after_update_path_for(resource)
+      user_path(current_user)
+    end 
   
   def update_resource(resource, params)
     resource.update_without_password(params)
