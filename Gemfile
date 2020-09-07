@@ -59,3 +59,4 @@ gem 'devise-i18n-views' #日本語化
 
 
 gem 'seed-fu', '~> 2.3'
+gem 'rails_12factor'
