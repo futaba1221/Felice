@@ -5,12 +5,14 @@
       <!--<div>folloing..< @user.following.count %></div>-->
       <div>follower..<%= @user.followers.count %></div>
       <div><%= render 'follow_form' if user_signed_in? %></div>
+      <div>
       <% if @user.birthday.present? %>
        <span>年齢: <%= age_culc(@user.birthday) %>歳</span>
       <% end %>
       <% if @user.prefecture_id %>
        <span>居住地: <%= Prefecture.find_by(id: @user.prefecture_id).name %></span>
       <% end %>
+      </div>
       <% if @user.id === current_user.id %>
        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-info btn-show" %>
        <%= link_to "あなたからいいね!", "/users/#{current_user.id}/like", class: "btn btn-info btn-show"%>
