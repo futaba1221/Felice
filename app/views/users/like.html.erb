@@ -20,6 +20,9 @@
       <li>
        <%= Prefecture.find_by(id: user.prefecture_id).name %>
       </li>
+      <li>
+       <%= age_culc(user.birthday) %>歳
+      </li>
      </ul>
     </div>
   </div>   

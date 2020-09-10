@@ -21,6 +21,12 @@
        <li>
           <h2><%= user.name %></h2>
        </li>
+      <li>
+       <%= Prefecture.find_by(id: user.prefecture_id).name %>
+      </li>
+      <li>
+       <%= age_culc(user.birthday) %>歳
+      </li>
        <li>
         <% if current_user.following?(user) %>
          <i class="fas fa-heart"></i>
@@ -56,6 +62,12 @@
        <li>
         <h2><%= user.name %></h2>
        </li>
+      <li>
+       <%= Prefecture.find_by(id: user.prefecture_id).name %>
+      </li>
+      <li>
+       <%= age_culc(user.birthday) %>歳
+      </li>
        <li>
         <% if current_user.following?(user) %>
          <i class="fas fa-heart"></i>

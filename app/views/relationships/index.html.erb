@@ -4,6 +4,25 @@
   <% if friend.status == true %>
    <div><%= friend.name %>は退会済ユーザーです</div>
   <% else %>
-   <div><%= friend.name %></div>
+   <div class="likestyle">
+   <% if friend.image_names.present? %>
+      <%= image_tag friend.image_names[0], class: "show-image_names2" %>
+   <% else %>
+    <%= image_tag "/no-image.png", class: "show-image_names2" %>
+   <% end %>
+     <div class="like">
+      <ul>
+      <li>
+       <h2><%= link_to(friend.name, "/users/#{friend.id}") %></h2>
+      </li>
+      <li>
+       <%= Prefecture.find_by(id: friend.prefecture_id).name %>
+      </li>
+      <li>
+       <%= age_culc(friend.birthday) %>歳
+      </li>
+     </ul>
+    </div>
+   </div>
   <% end %>
  <% end %>
